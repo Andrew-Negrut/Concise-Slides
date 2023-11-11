@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<h1 style="text-align: center">Concise Slides</h1>
+
+<br>
+<br>
+
+<div style="text-align: center">
+    <form action="{% url 'home' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}  
+        <input type="file" id="choose-slides" accept=".pptx" name="slides">
+        <button id="submit-slides">Submit</button>
+    </form>
+    <div id="status"></div>
+    <br>
+    {% if done %}
+        <button id="download-slides">Download Concise Version</button>
+    {% endif %}
+</div>
+
+<script>
+    function handleSubmit() {
+        const status = document.getElementById("status");
+
+        const loading = document.createElement("p");
+        loading.innerHTML = "Generating slideshow..."
+
+        status.appendChild(loading);
+    }
+
+
+    const submitButton = document.getElementById("submit-slides");
+    submitButton.addEventListener("click", handleSubmit);
+</script>
+
+<script>
+
+
+    // function handleSubmit() {
+    //     const slideshow = document.getElementById("choose-slides");
+
+    //     if (!slideshow.files.length) {
+    //         alert("Select a slideshow (.pptx)");
+    //         return;
+    //     }
+
+    //     console.log("submitted");
+
+    //     slideshow.removeEventListener("click", handleSubmit);
+    // }
+
+    // document.getElementById("submit-slides").addEventListener("click", handleSubmit);
+
+
+
+</script>
+
+{% endblock content %}
